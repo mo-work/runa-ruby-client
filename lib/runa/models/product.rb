@@ -22,6 +22,7 @@ class Runa::Product < Runa::Response
                 :name,
                 :minimum_value,
                 :maximum_value,
+                :payout_type,
                 :redeem_instructions_url,
                 :state,
                 :nonsense,

@@ -40,6 +40,16 @@ RSpec.describe Runa::Product do
         end
       end
 
+      it 'should return a set of paginated products & omit subscriptions' do
+        VCR.use_cassette('get_product_catalogue_subscriptions') do
+          expect(products.class).to eq(Runa::Products)
+          expect(products.all.is_a?(Array)).to eq(true)
+          expect(products.all.first.class).to eq(Runa::Product)
+          expect(products.all.length).to eq(1)
+          expect(products.status).to eq(Runa::Response::STATUS[:completed])
+        end
+      end
+
       it 'should return a single product' do
         VCR.use_cassette('get_product_catalogue_valid') do
           products = client.products.all

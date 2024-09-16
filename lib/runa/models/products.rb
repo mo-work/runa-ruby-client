@@ -39,6 +39,8 @@ class Runa::Products < Runa::Response
     if is_successful?
       # TODO: separate?
       if @payload['catalog']
+          products = @payload['catalog']
+          products.delete_if { |product| !product['payout_type'].eql? 'gift_card'.freeze }
           @all.concat(@payload['catalog'].map { |p| Runa::Product.new(p) })
       end
       @after_key = @payload['pagination']['cursors']['after']
